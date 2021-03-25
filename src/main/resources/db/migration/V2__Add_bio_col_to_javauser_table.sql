@@ -1,0 +1,1 @@
+alter table JAVAUSER add bio VARCHAR(256);

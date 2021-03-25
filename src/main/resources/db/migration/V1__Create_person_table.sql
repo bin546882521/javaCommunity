@@ -1,11 +1,3 @@
-## springboot 测试案例
-
-## 资料   资料
-[Spring 文档](https://spring.io/guides)
-[http请求](https://square.github.io/okhttp/)
-
-##脚本
-```sql
 create table JAVAUSER
 (
     ID           INT auto_increment,
@@ -15,4 +7,3 @@ create table JAVAUSER
     GMT_CREATE   BIGINT,
     GMT_MODIFIED BIGINT
 );
-```
