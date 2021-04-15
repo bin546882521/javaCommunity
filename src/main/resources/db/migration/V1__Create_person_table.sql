@@ -1,6 +1,6 @@
-create table JAVAUSER
+create table user
 (
-    ID           INT auto_increment,
+    ID           INT auto_increment primary key,
     ACCOUNT_ID   VARCHAR(100),
     NAME         VARCHAR(50),
     TOKEN        CHAR(36),
