@@ -1,19 +1,20 @@
 package life.chen.community.community.controller;
 
+import life.chen.community.community.dto.CommentCreateDTO;
 import life.chen.community.community.dto.CommentDTO;
 import life.chen.community.community.dto.ResultDTO;
+import life.chen.community.community.enums.CommentTypeEnum;
 import life.chen.community.community.exception.CustomizeErrorCode;
 import life.chen.community.community.model.Comment;
 import life.chen.community.community.model.User;
 import life.chen.community.community.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -23,11 +24,15 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO, HttpServletRequest request){
+    public Object post(@RequestBody CommentCreateDTO commentDTO, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(request.getSession().getAttribute("user"));
         if(user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
+        }
+        //StringUtils.isBlank 判断是否为空
+        if(commentDTO == null || StringUtils.isBlank(commentDTO.getContent())){
+            return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_IS_EMPTY);
         }
         Comment comment = new Comment();
         comment.setParentId(commentDTO.getParentId());
@@ -41,5 +46,12 @@ public class CommentController {
 //        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
 //        objectObjectHashMap.put("message","成功");
         return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
     }
 }
