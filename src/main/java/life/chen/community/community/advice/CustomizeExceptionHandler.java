@@ -20,7 +20,7 @@ public class CustomizeExceptionHandler {
     @ExceptionHandler(Exception.class)
     Object handle(Throwable e, Model model, HttpServletRequest request,HttpServletResponse response) {
         String contentType = request.getContentType();
-        System.out.println(contentType);
+        System.out.println("contentType:"+contentType);
         if ("application/json;charset=UTF-8".equals(contentType)) {
             ResultDTO resultDTO;
             //返回json
