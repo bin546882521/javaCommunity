@@ -125,6 +125,7 @@ public class QuestionService {
             question.setViewCount(0);
             question.setLikeCount(0);
             question.setCommentCount(0);
+            System.out.println(question);
             questionMapper.insert(question);
         }else{
             //更新
