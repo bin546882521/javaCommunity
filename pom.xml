@@ -121,9 +121,9 @@
 <!--                    <url>jdbc:mysql://localhost:3306/maven?useSSL=false</url>-->
 <!--                    <user>root</user>-->
 <!--                    <password>cb123456</password>-->
-                    <url>${db.url}}</url>
-                    <user>${db.user}}</user>
-                    <password>${db.password}}</password>
+                    <url>${db.url}</url>
+                    <user>${db.user}</user>
+                    <password>${db.password}</password>
                 </configuration>
                 <dependencies>
                     <dependency>
