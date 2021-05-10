@@ -1,5 +1,7 @@
 package life.chen.community.community.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import life.chen.community.community.dto.CommentCreateDTO;
 import life.chen.community.community.dto.CommentDTO;
 import life.chen.community.community.dto.ResultDTO;
@@ -15,13 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+@Api(tags = "问题提问")
 @Controller
 public class CommentController {
     @Autowired
     private
     CommentService commentService;
 
+    @ApiOperation("查询详细")
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentDTO, HttpServletRequest request){
@@ -48,6 +51,7 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
+    @ApiOperation("获取问题")
     @ResponseBody
     @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
     public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id){
